@@ -12,7 +12,7 @@ class SettingsScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         title: const Text('Setting Screen'),
       ),
-      drawer: const MainDrawer(),
+      // drawer: const MainDrawer(),
       body: const Center(
         child: Text(
           'Setting Screens'
