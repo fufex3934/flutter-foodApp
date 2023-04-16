@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodapp/screens/meal_details_screen.dart';
 
-
+import '../screens/meal_detail_screen.dart';
 import '../models/meal.dart';
 
 class MealItem extends StatelessWidget {
@@ -12,14 +11,13 @@ class MealItem extends StatelessWidget {
   final Complexity complexity;
   final Affordability affordability;
 
-  const MealItem({super.key,
-    required this.id,
-    required this.title,
-    required this.imageUrl,
-    required this.affordability,
-    required this.complexity,
-    required this.duration,
-  });
+  MealItem(
+      {required this.id,
+      required this.title,
+      required this.imageUrl,
+      required this.affordability,
+      required this.complexity,
+      required this.duration,});
 
   String get complexityText {
     switch (complexity) {
@@ -54,17 +52,22 @@ class MealItem extends StatelessWidget {
   }
 
   void selectMeal(BuildContext context) {
-    Navigator.pushNamed(
-        context,
-        MealDetailScreen.detailMealScreen,
-      arguments:id
-    );
+    Navigator.of(context)
+        .pushNamed(
+      MealDetailScreen.routeName,
+      arguments: id,
+    )
+        .then((result) {
+      if (result != null) {
+        // removeItem(result);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:()=> selectMeal(context),
+      onTap: () => selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -115,21 +118,39 @@ class MealItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Row(children: <Widget>[
-                    const Icon(Icons.schedule,),
-                    const SizedBox(width: 6,),
-                    Text('$duration min'),
-                  ],),
-                  Row(children: <Widget>[
-                    const Icon(Icons.work,),
-                    const SizedBox(width: 6,),
-                    Text(complexityText),
-                  ],),
-                    Row(children: <Widget>[
-                    const Icon(Icons.attach_money,),
-                    const SizedBox(width: 6,),
-                    Text(affordabilityText),
-                  ],),
+                  Row(
+                    children: <Widget>[
+                      const Icon(
+                        Icons.schedule,
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text('$duration min'),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      const Icon(
+                        Icons.work,
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(complexityText),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      const Icon(
+                        Icons.attach_money,
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(affordabilityText),
+                    ],
+                  ),
                 ],
               ),
             ),

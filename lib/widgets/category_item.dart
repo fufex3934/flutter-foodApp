@@ -7,7 +7,7 @@ class CategoryItem extends StatelessWidget {
   final String title;
   final Color color;
 
-  const CategoryItem(this.id, this.title, this.color, {super.key});
+  CategoryItem(this.id, this.title, this.color, {super.key});
 
   void selectCategory(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(

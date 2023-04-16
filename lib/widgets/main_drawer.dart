@@ -1,65 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:foodapp/screens/settings.dart';
+
+import '../screens/filters_screen.dart';
 
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({Key? key}) : super(key: key);
+  const MainDrawer({super.key});
 
-  ListTile buildListTile(String title,IconData icon,VoidCallback handler) {
+  Widget buildListTile(String title, IconData icon, VoidCallback tapHandler) {
     return ListTile(
-      leading:  Icon(
+      leading: Icon(
         icon,
         size: 26,
       ),
-      title:  Text(
+      title: Text(
         title,
         style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoCondensed'
+          fontFamily: 'RobotoCondensed',
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
         ),
       ),
-      onTap: handler
+      onTap: tapHandler,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
-        children: [
+        children: <Widget>[
           Container(
             height: 120,
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             alignment: Alignment.centerLeft,
             color: Theme.of(context).accentColor,
-            child:  Text(
-                'Cooking Up!',
+            child: Text(
+              'Cooking Up!',
               style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 30,
-                color: Theme.of(context).primaryColor
-              ),
+                  fontWeight: FontWeight.w900,
+                  fontSize: 30,
+                  color: Theme.of(context).primaryColor),
             ),
           ),
-          const SizedBox(height: 20,),
-           buildListTile(
-               'Meals',
-               Icons.restaurant,
-               (){
-                 Navigator.pushReplacementNamed(context, '/');
-               }
-           ),
-          buildListTile(
-              'Settings',
-              Icons.settings,
-              (){
-                Navigator.pushReplacementNamed(context, SettingsScreen.settingScreen);
-              }
+          const SizedBox(
+            height: 20,
           ),
+          buildListTile('Meals', Icons.restaurant, () {
+            Navigator.of(context).pushReplacementNamed('/');
+          }),
+          buildListTile('Filters', Icons.settings, () {
+            Navigator.of(context).pushReplacementNamed(FiltersScreen.routeName);
+          }),
         ],
       ),
     );
   }
-
-
 }
